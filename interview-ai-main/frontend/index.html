@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Interview Practice with Natalie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- LEFT PANEL -->
+  <aside class="panel panel--left">
+    <div class="logo">
+      <div class="logo__icon"><i class="fas fa-robot"></i></div>
+      <span class="logo__text">InterviewAI</span>
+    </div>
+    <p class="panel__label">Select Topic</p>
+    <nav class="topic-list" id="topicList">
+      <button class="topic-btn" data-subject="Self Introduction">
+        <span class="topic-btn__icon topic-btn__icon--blue"><i class="fas fa-user"></i></span>
+        <span>Self Introduction</span>
+      </button>
+      <button class="topic-btn" data-subject="Generative AI">
+        <span class="topic-btn__icon topic-btn__icon--purple"><i class="fas fa-brain"></i></span>
+        <span>Generative AI</span>
+      </button>
+      <button class="topic-btn" data-subject="Python">
+        <span class="topic-btn__icon topic-btn__icon--yellow"><i class="fab fa-python"></i></span>
+        <span>Python</span>
+      </button>
+      <button class="topic-btn" data-subject="English">
+        <span class="topic-btn__icon topic-btn__icon--green"><i class="fas fa-language"></i></span>
+        <span>English</span>
+      </button>
+      <button class="topic-btn" data-subject="HTML">
+        <span class="topic-btn__icon topic-btn__icon--orange"><i class="fab fa-html5"></i></span>
+        <span>HTML</span>
+      </button>
+      <button class="topic-btn" data-subject="CSS">
+        <span class="topic-btn__icon topic-btn__icon--cyan"><i class="fab fa-css3-alt"></i></span>
+        <span>CSS</span>
+      </button>
+    </nav>
+    <div class="progress-block hidden" id="progressBlock">
+      <p class="panel__label">Progress</p>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+        </div>
+        <span class="progress-pct" id="progressPct">0%</span>
+      </div>
+      <p class="progress-label" id="progressLabel">Question 1 of 5</p>
+      <p class="panel__label" style="margin-top:1.5rem">Session Timer</p>
+      <div class="timer-display" id="timerDisplay">00:00</div>
+    </div>
+    <div class="status-indicator">
+      <span class="status-dot status-dot--idle" id="statusDot"></span>
+      <span class="status-text" id="statusText">Select a topic to start</span>
+    </div>
+  </aside>
+
+  <!-- CENTER PANEL -->
+  <main class="panel panel--center">
+
+    <div class="welcome" id="welcomeState">
+      <div class="welcome__orb"><i class="fas fa-microphone-lines"></i></div>
+      <h1 class="welcome__title">Master Your Interview</h1>
+      <p class="welcome__sub">AI-powered practice with adaptive questions, real-time feedback, and voice interaction.</p>
+      <div class="welcome__features">
+        <div class="feature-chip"><i class="fas fa-waveform-lines"></i> Voice Recognition</div>
+        <div class="feature-chip"><i class="fas fa-brain"></i> Adaptive AI</div>
+        <div class="feature-chip"><i class="fas fa-chart-bar"></i> Instant Feedback</div>
+      </div>
+      <p class="welcome__cta">Choose a topic from the left panel</p>
+    </div>
+
+    <div class="interview hidden" id="interviewState">
+      <div class="topic-badge-row">
+        <span class="topic-badge" id="topicBadge">Python</span>
+        <i class="topic-badge-icon" id="topicIcon"></i>
+      </div>
+      <div class="avatar-wrap" id="avatarWrap">
+        <div class="avatar-rings">
+          <div class="ring ring--1"></div>
+          <div class="ring ring--2"></div>
+          <div class="ring ring--3"></div>
+        </div>
+        <div class="avatar">
+          <img src="https://www.whiteroomstudio.com.sg/wordpress/wp-content/uploads/2021/10/professional-headshot-photography-linkedin-singapore-5.jpeg" alt="Natalie" class="avatar__img" />
+        </div>
+      </div>
+      <div class="state-label" id="stateLabel">
+        <span class="state-label__dot" id="stateLabelDot"></span>
+        <span id="stateLabelText">Ready</span>
+      </div>
+      <div class="waveform hidden" id="waveform">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="controls">
+        <button class="btn btn--primary" id="startInterviewBtn">
+          <i class="fas fa-play"></i> Start Interview
+        </button>
+        <button class="btn btn--record hidden" id="recordBtn" disabled>
+          <i class="fas fa-microphone" id="micIcon"></i>
+          <i class="fas fa-stop hidden" id="stopIcon"></i>
+        </button>
+        <button class="btn btn--primary hidden" id="submitBtn" disabled>
+          <i class="fas fa-paper-plane"></i> Submit Answer
+        </button>
+      </div>
+      <button class="btn btn--ghost btn--sm" id="endInterviewBtn" disabled>
+        <i class="fas fa-xmark"></i> End Interview
+      </button>
+    </div>
+
+    <!-- Results screen -->
+    <div class="results hidden" id="resultsState">
+      <div class="results__header">
+        <div class="results__badge"><i class="fas fa-trophy"></i></div>
+        <h2 class="results__title">Interview Complete</h2>
+        <p class="results__sub" id="resultsSubject"></p>
+      </div>
+      <div class="results__loading" id="resultsLoading">
+        <div class="spinner"></div>
+        <p>Preparing your interview report...</p>
+      </div>
+      <div class="results__content hidden" id="resultsContent">
+
+        <!-- Score ring + sub-score breakdown -->
+        <div class="score-card">
+          <div class="score-ring-wrap">
+            <svg class="score-ring" viewBox="0 0 120 120">
+              <defs>
+                <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#667eea"/>
+                  <stop offset="100%" stop-color="#764ba2"/>
+                </linearGradient>
+              </defs>
+              <circle cx="60" cy="60" r="50" class="score-ring__track"/>
+              <circle cx="60" cy="60" r="50" class="score-ring__fill" id="scoreRingFill"
+                stroke-dasharray="314.16" stroke-dashoffset="314.16"/>
+            </svg>
+            <div class="score-ring__label">
+              <span class="score-ring__value" id="scoreValue">0</span>
+              <span class="score-ring__max">/5</span>
+            </div>
+          </div>
+          <div class="score-card__info">
+            <h3>Overall Score</h3>
+            <p id="scoreDesc">Your performance summary</p>
+            <div class="score-breakdown" id="scoreBreakdown"></div>
+          </div>
+        </div>
+
+        <!-- Feedback cards -->
+        <div class="feedback-grid">
+          <div class="fb-card fb-card--feedback">
+            <div class="fb-card__header"><i class="fas fa-comment-lines"></i><h4>Detailed Feedback</h4></div>
+            <p id="feedbackText" class="fb-card__body"></p>
+          </div>
+          <div class="fb-card fb-card--strengths">
+            <div class="fb-card__header"><i class="fas fa-circle-check"></i><h4>Strengths</h4></div>
+            <ul id="strengthsList" class="fb-card__list"></ul>
+          </div>
+          <div class="fb-card fb-card--improve">
+            <div class="fb-card__header"><i class="fas fa-arrow-up-right-dots"></i><h4>Areas to Improve</h4></div>
+            <ul id="improveList" class="fb-card__list"></ul>
+          </div>
+          <div class="fb-card fb-card--recommend">
+            <div class="fb-card__header"><i class="fas fa-bookmark"></i><h4>Recommended Topics</h4></div>
+            <ul id="recommendList" class="fb-card__list"></ul>
+          </div>
+        </div>
+
+        <div class="results__actions">
+          <button class="btn btn--primary" id="newInterviewBtn">
+            <i class="fas fa-rotate-right"></i> New Interview
+          </button>
+          <button class="btn btn--outline" id="downloadBtn">
+            <i class="fas fa-download"></i> Download Report
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- RIGHT PANEL -->
+  <aside class="panel panel--right">
+    <div class="panel__header">
+      <h3>Conversation</h3>
+      <span class="msg-count" id="msgCount">0 messages</span>
+    </div>
+    <div class="transcript-empty" id="transcriptEmpty">
+      <i class="fas fa-comments"></i>
+      <p>Your conversation will appear here</p>
+    </div>
+    <div class="transcript" id="transcript"></div>
+  </aside>
+
+</div>
+
+<div class="toast hidden" id="toast"></div>
+<script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+# InterviewAI — backend dependencies
+# Install with: pip install -r requirements.txt
+
+# Web framework
+Flask==3.1.3
+flask-cors==6.0.5
+
+# Environment variables
+python-dotenv==1.0.1
+
+# LLM — Groq (Llama 3.1)
+langchain-groq==1.1.3
+groq==0.37.1
+
+# LangChain core + agent
+langchain==1.3.9
+langchain-core==1.4.7
+
+# LangGraph (stateful agent + memory)
+langgraph==1.2.5
+langgraph-checkpoint==4.1.1
+langgraph-prebuilt==1.1.0
+
+# Speech-to-Text
+assemblyai==0.64.16
+
+# HTTP requests (Murf AI TTS)
+requests==2.32.4
