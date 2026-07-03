@@ -6,7 +6,7 @@ A full-stack, voice-based mock interview platform powered by Groq (Llama 3.1), L
 
 ## Live Demo
 
-[Demo Link Here](https://interview-ai-murex-eta.vercel.app/)
+[Demo Link Here](https://interview-ai-two-taupe.vercel.app)
 
 ---
 
